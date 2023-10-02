@@ -9,12 +9,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/create")
     public void postUser(@RequestBody User userToCreate){
         userService.create(userToCreate);
     }
@@ -28,6 +29,12 @@ public class UserController {
     @GetMapping("/users")
     public List<User> findAll(){
         return userService.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteUserById(@PathVariable Long id){
+        var user = userService.deleteUserById(id);
+        return ResponseEntity.ok("Usuario excluido.");
     }
 
 }
