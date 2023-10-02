@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -38,5 +39,21 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
         return null;
     }
+
+    @Override
+    public User updateUserById(Long id, User novoUsuario) {
+        User usuarioExistente = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
+
+
+        usuarioExistente.setName(novoUsuario.getName());
+        usuarioExistente.setLogin(novoUsuario.getLogin());
+        usuarioExistente.setEmail(novoUsuario.getEmail());
+        usuarioExistente.setPassword(novoUsuario.getPassword());
+
+
+        return userRepository.save(usuarioExistente);
+    }
+
 
 }
