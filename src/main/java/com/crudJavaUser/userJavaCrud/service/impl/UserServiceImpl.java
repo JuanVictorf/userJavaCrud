@@ -36,6 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User deleteUserById(Long id){
+        userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Usuário com ID " + id + " não encontrado"));
+
         userRepository.deleteById(id);
         return null;
     }
