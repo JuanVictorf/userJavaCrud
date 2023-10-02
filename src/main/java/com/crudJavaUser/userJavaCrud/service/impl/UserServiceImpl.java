@@ -5,6 +5,9 @@ import com.crudJavaUser.userJavaCrud.repository.UserRepository;
 import com.crudJavaUser.userJavaCrud.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -19,4 +22,15 @@ public class UserServiceImpl implements UserService {
     public User create(User userToCreate) {
         return userRepository.save(userToCreate);
     }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
 }

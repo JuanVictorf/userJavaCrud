@@ -4,8 +4,15 @@ import com.crudJavaUser.userJavaCrud.model.User;
 import com.crudJavaUser.userJavaCrud.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public interface  UserService {
+import java.util.List;
+
+public interface UserService {
 
     User create(User userToCreate);
+
+    User findById(Long id);
+
+    List<User> findAll();
+
 
 }
